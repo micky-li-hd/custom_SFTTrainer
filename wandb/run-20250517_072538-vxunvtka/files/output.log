@@ -1,0 +1,24 @@
+05/17/2025 07:25:38 - INFO - root - Saving config to janus-SFT/config.yaml
+05/17/2025 07:25:38 - INFO - __main__ - Loading models and optimizer
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:06<00:00,  3.17s/it]
+05/17/2025 07:25:46 - INFO - __main__ - Creating dataloaders and lr_scheduler
+/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/webdataset/compat.py:389: UserWarning: WebDataset(shardshuffle=...) is None; set explicitly to False or a number
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/training/train.py", line 463, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/training/train.py", line 180, in main
+    num_batches = len(dataloader)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 529, in __len__
+    length = self._IterableDataset_len_called = len(self.dataset)  # type: ignore[assignment, arg-type]
+TypeError: object of type 'WebDataset' has no len()
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/v-haodongli/t2isft/training/train.py", line 463, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/v-haodongli/t2isft/training/train.py", line 180, in main
+[rank0]:     num_batches = len(dataloader)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 529, in __len__
+[rank0]:     length = self._IterableDataset_len_called = len(self.dataset)  # type: ignore[assignment, arg-type]
+[rank0]: TypeError: object of type 'WebDataset' has no len()

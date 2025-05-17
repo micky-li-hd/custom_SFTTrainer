@@ -1,0 +1,41 @@
+{
+  "os": "Linux-6.8.0-1028-azure-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.0",
+  "startedAt": "2025-05-17T07:34:19.524465Z",
+  "args": [
+    "config=config/sft.yaml"
+  ],
+  "program": "/home/v-haodongli/t2isft/training/train.py",
+  "codePath": "training/train.py",
+  "email": "3196859347@qq.com",
+  "root": "/home/v-haodongli/t2isft",
+  "host": "GCRAZGDL1502",
+  "executable": "/home/v-haodongli/miniconda3/envs/janus/bin/python3.10",
+  "codePathLocal": "training/train.py",
+  "cpu_count": 24,
+  "cpu_count_logical": 24,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1065418129408",
+      "used": "800224772096"
+    }
+  },
+  "memory": {
+    "total": "232209711104"
+  },
+  "cpu": {
+    "count": 24,
+    "countLogical": 24
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100 80GB PCIe",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere"
+    }
+  ],
+  "cudaVersion": "12.9"
+}

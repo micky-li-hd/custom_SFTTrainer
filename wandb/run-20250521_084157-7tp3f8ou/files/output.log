@@ -1,0 +1,61 @@
+05/21/2025 08:41:57 - INFO - root - Saving config to janus-SFT/config.yaml
+05/21/2025 08:41:57 - INFO - __main__ - Loading models and optimizer
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:05<00:00,  2.79s/it]
+05/21/2025 08:42:05 - INFO - __main__ - Creating dataloaders and lr_scheduler
+Resolving data files: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 202/202 [00:00<00:00, 342322.99it/s]
+Loading dataset shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 128/128 [00:00<00:00, 136469.47it/s]
+Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 202/202 [00:00<00:00, 859.28 examples/s]
+Filter: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 202/202 [00:00<00:00, 307.27 examples/s]
+/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/data/dataloader.py:626: UserWarning: This DataLoader will create 32 worker processes in total. Our suggested max number of worker in current system is 24, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(
+05/21/2025 08:42:06 - INFO - __main__ - Preparing model, optimizer and dataloaders
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/training/train.py", line 482, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/training/train.py", line 210, in main
+    model, optimizer, lr_scheduler, dataloader = accelerator.prepare(model, optimizer, lr_scheduler, dataloader)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/accelerate/accelerator.py", line 1440, in prepare
+    result = self._prepare_deepspeed(*args)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/accelerate/accelerator.py", line 2022, in _prepare_deepspeed
+    optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+    return optimizer_class(optimizer.param_groups, **defaults)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+    self.ds_opt_adam = CPUAdamBuilder().load()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 540, in load
+    return self.jit_load(verbose)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 572, in jit_load
+    cxx_args = self.strip_empty_entries(self.cxx_args())
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 852, in cxx_args
+    CUDA_ENABLE = self.get_cuda_compile_flag()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 429, in get_cuda_compile_flag
+    assert_no_cuda_mismatch(self.name)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 110, in assert_no_cuda_mismatch
+    raise CUDAMismatchException(
+deepspeed.ops.op_builder.builder.CUDAMismatchException: >- DeepSpeed Op Builder: Installed CUDA version 12.9 does not match the version torch was compiled with 12.6, unable to compile cuda/cpp extensions without a matching cuda version.
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/v-haodongli/t2isft/training/train.py", line 482, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/v-haodongli/t2isft/training/train.py", line 210, in main
+[rank0]:     model, optimizer, lr_scheduler, dataloader = accelerator.prepare(model, optimizer, lr_scheduler, dataloader)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/accelerate/accelerator.py", line 1440, in prepare
+[rank0]:     result = self._prepare_deepspeed(*args)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/accelerate/accelerator.py", line 2022, in _prepare_deepspeed
+[rank0]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank0]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank0]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 540, in load
+[rank0]:     return self.jit_load(verbose)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 572, in jit_load
+[rank0]:     cxx_args = self.strip_empty_entries(self.cxx_args())
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 852, in cxx_args
+[rank0]:     CUDA_ENABLE = self.get_cuda_compile_flag()
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 429, in get_cuda_compile_flag
+[rank0]:     assert_no_cuda_mismatch(self.name)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 110, in assert_no_cuda_mismatch
+[rank0]:     raise CUDAMismatchException(
+[rank0]: deepspeed.ops.op_builder.builder.CUDAMismatchException: >- DeepSpeed Op Builder: Installed CUDA version 12.9 does not match the version torch was compiled with 12.6, unable to compile cuda/cpp extensions without a matching cuda version.

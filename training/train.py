@@ -24,7 +24,7 @@ from training.utils import get_config, flatten_omega_conf, AverageMeter
 from training.my_logging import set_verbosity_info, set_verbosity_error
 from janus.models.processing_vlm import VLChatProcessor
 from janus.models.modeling_vlm import MultiModalityCausalLM
-from training.data import expand_urls, WebDatasetFromTar, DataCollatorForMultiModalDataset, process_one_data
+from training.data_new import LazySupervisedMixDataset, DataCollatorForSupervisedDataset
 from torch.utils.data import Dataset, DataLoader
 from training.lr_schedulers import get_scheduler
 logger = get_logger(__name__, log_level="INFO")
@@ -163,17 +163,16 @@ def main():
     logger.info("Creating dataloaders and lr_scheduler")
 
     # 修改后的构建数据集方式
-    expanded_urls = expand_urls(config.dataset.params.url)
-    web_dataset = WebDatasetFromTar(
-        expanded_urls,
-        shuffle_buffer=config.dataset.params.shuffle_buffer_size
-    ).build()
+    train_dataset = LazySupervisedMixDataset(
+        data_path=config.dataset.params.path,
+        processor=processor
+    )
 
     dataloader = DataLoader(
-        web_dataset,
+        train_dataset,
         batch_size=config.training.batch_size,
-        collate_fn=DataCollatorForMultiModalDataset(),
-        num_workers=os.cpu_count(),
+        collate_fn=DataCollatorForSupervisedDataset(processor.tokenizer),
+        num_workers=config.dataset.params.num_workers,
         pin_memory=True
     )
     #计算每个epoch走多少step,手动定义一个epoch用config.experiment.samples_per_epoch条数据
@@ -208,8 +207,7 @@ def main():
     #       Prepare accelerator     #
     #################################
     logger.info("Preparing model, optimizer and dataloaders")
-    model, optimizer, lr_scheduler = accelerator.prepare(model, optimizer, lr_scheduler)
-
+    model, optimizer, lr_scheduler, dataloader = accelerator.prepare(model, optimizer, lr_scheduler, dataloader)
     ##################################
     #             Training          #
     #################################
@@ -225,59 +223,80 @@ def main():
     for epoch in range(first_epoch, num_train_epochs):
         model.train()
         for batch in dataloader:
-            input_ids = batch["input_ids"]
-            text_id_mask = batch["text_id_mask"]
-            image_id_mask = batch["image_id_mask"]
-            label_ids = batch["label_ids"]
-            label_text_id_mask = batch["label_text_id_mask"]
-            label_image_id_mask = batch["label_image_id_mask"]
+            input_ids = batch["input_ids"]                # (B, L)
+            text_id_mask = batch["text_id_mask"]          # (B, L)
+            image_id_mask = batch["image_id_mask"]        # (B, L)
+            label_ids = batch["label_ids"]                # (B, L)
+            label_text_id_mask = batch["label_text_id_mask"]  # (B, L)
+            label_image_id_mask = batch["label_image_id_mask"]  # (B, L)
+
             data_time_m.update(time.time() - end)
             batch_size, seq_len = input_ids.shape
+            embed_dim = model.language_model.model.embed_tokens.weight.shape[1]
             input_embeds = torch.zeros(
-                (batch_size * seq_len, text_embeds.shape[1]),
+                (batch_size, seq_len, embed_dim),
                 dtype=text_embeds.dtype,
                 device=text_embeds.device
             )
+
             if global_step == 0 and epoch == 0:
                 logger.info("Input ids: {}".format(input_ids))
                 logger.info("Labels: {}".format(label_ids))
-            # 获取输入嵌入
+
+            # 获取嵌入
             with torch.no_grad():
-                text_embeds = model.language_model.model.embed_tokens(input_ids[text_id_mask])
-                image_embeds = model.prepare_gen_img_embeds(input_ids[image_id_mask])
+                # 提取文本 token 的 input_ids
+                text_indices = text_id_mask.bool()
+                text_input_ids = input_ids[text_indices]  # (N_text, )
+                text_embeds = model.language_model.model.embed_tokens(text_input_ids)  # (N_text, D)
 
-            input_embeds[text_id_mask.view(-1), :] = text_embeds
-            input_embeds[image_id_mask.view(-1), :] = image_embeds
-            input_embeds = input_embeds.view(batch_size, seq_len, -1)
+                # 提取图像 token 的 input_ids
+                image_indices = image_id_mask.bool()
+                image_input_ids = input_ids[image_indices]  # (N_image, )
+                image_embeds = model.prepare_gen_img_embeds(image_input_ids)  # (N_image, D)
+
+            # 填充嵌入
+            input_embeds[text_indices] = text_embeds
+            input_embeds[image_indices] = image_embeds
+
+            # 前向传播
             with accelerator.accumulate(model):
-                outputs = model.language_model.model(inputs_embeds=input_embeds, return_dict=False)
-                hidden_states = outputs[0]
-                hidden_states = hidden_states.view(batch_size * seq_len, -1)
-                label_ids = label_ids.view(-1)
-                label_text_id_mask = label_text_id_mask.view(-1)
-                label_image_id_mask = label_image_id_mask.view(-1)
+                outputs = model.language_model.model(
+                    inputs_embeds=input_embeds,
+                    return_dict=False
+                )
+                hidden_states = outputs[0]  # (B, L, D)
 
-                logits_text = model.language_model.lm_head(hidden_states[label_text_id_mask, :])
-                logits_image = model.gen_head(hidden_states[label_image_id_mask, :])
+                # 展平用于 loss 计算
+                hidden_states = hidden_states.view(-1, hidden_states.size(-1))  # (B*L, D)
+                label_ids_flat = label_ids.view(-1)  # (B*L, )
+
+                # 提取有效的 label mask
+                label_text_indices = label_text_id_mask.view(-1).bool()
+                label_image_indices = label_image_id_mask.view(-1).bool()
+
+                # 提取对应的 logits
+                logits_text = model.language_model.lm_head(hidden_states[label_text_indices])  # (N_text, Vocab)
+                logits_image = model.gen_head(hidden_states[label_image_indices])  # (N_image, ImageVocab)
 
                 # 计算 loss
-                loss_text = F.cross_entropy(logits_text.float(), label_ids[label_text_id_mask])
-                loss_image = F.cross_entropy(logits_image.float(), label_ids[label_image_id_mask])
+                loss_text = F.cross_entropy(logits_text.float(), label_ids_flat[label_text_indices])
+                loss_image = F.cross_entropy(logits_image.float(), label_ids_flat[label_image_indices])
+                loss = loss_text + loss_image
+
+                # 分布式训练中的 loss 同步
                 avg_loss_text = accelerator.gather(loss_text.repeat(config.training.batch_size)).mean()
                 avg_loss_image = accelerator.gather(loss_image.repeat(config.training.batch_size)).mean()
-                loss = loss_text + loss_image
+                avg_loss = avg_loss_text + avg_loss_image
 
                 accelerator.backward(loss)
 
+                # 梯度裁剪
                 if config.training.max_grad_norm is not None and accelerator.sync_gradients:
                     accelerator.clip_grad_norm_(model.parameters(), config.training.max_grad_norm)
 
-                # log gradient norm before zeroing it
-                if (
-                        accelerator.sync_gradients
-                        and (global_step + 1) % config.experiment.log_grad_norm_every == 0
-                        and accelerator.is_main_process
-                ):
+                # 日志记录
+                if accelerator.sync_gradients and (global_step + 1) % config.experiment.log_grad_norm_every == 0 and accelerator.is_main_process:
                     log_grad_norm(model, accelerator, global_step + 1)
 
                 optimizer.zero_grad(set_to_none=True)

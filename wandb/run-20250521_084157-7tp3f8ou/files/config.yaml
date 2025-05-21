@@ -1,0 +1,142 @@
+_wandb:
+    value:
+        cli_version: 0.19.11
+        m: []
+        python_version: 3.10.0
+        t:
+            "1":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 51
+                - 55
+                - 63
+                - 71
+            "2":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 51
+                - 55
+                - 63
+                - 71
+            "3":
+                - 13
+                - 14
+                - 23
+                - 55
+            "4": 3.10.0
+            "5": 0.19.11
+            "6": 4.51.3
+            "8":
+                - 5
+            "12": 0.19.11
+            "13": linux-x86_64
+config:
+    value: config/sft.yaml
+dataset.params.max_samples:
+    value: 1000
+dataset.params.num_workers:
+    value: 32
+dataset.params.path:
+    value: /home/v-haodongli/Janus/tmp_script/laion_2b_aesthetic
+dataset.params.persistent_workers:
+    value: true
+dataset.params.pin_memory:
+    value: true
+dataset.params.resolution:
+    value: 256
+dataset.params.shuffle_buffer_size:
+    value: 1000
+dataset.preprocessing.max_seq_length:
+    value: 381
+experiment.eval_every:
+    value: 2500
+experiment.generate_every:
+    value: 1000
+experiment.log_every:
+    value: 50
+experiment.log_grad_norm_every:
+    value: 500
+experiment.logging_dir:
+    value: janus-SFT/logs
+experiment.max_train_examples:
+    value: 20000000
+experiment.max_train_examples_mmu:
+    value: 40000000
+experiment.name:
+    value: janus-SFT
+experiment.output_dir:
+    value: janus-SFT
+experiment.project:
+    value: janus-SFT
+experiment.save_every:
+    value: 10000
+lr_scheduler.params.learning_rate:
+    value: 2e-05
+lr_scheduler.params.warmup_steps:
+    value: 1000
+lr_scheduler.scheduler:
+    value: cosine
+model.gradient_checkpointing:
+    value: true
+model.janus_pro.model_name_or_path:
+    value: deepseek-ai/Janus-Pro-7B
+optimizer.name:
+    value: adamw
+optimizer.params.beta1:
+    value: 0.9
+optimizer.params.beta2:
+    value: 0.999
+optimizer.params.epsilon:
+    value: 1e-08
+optimizer.params.learning_rate:
+    value: 2e-05
+optimizer.params.scale_lr:
+    value: false
+optimizer.params.weight_decay:
+    value: 0.01
+training.batch_size:
+    value: 4
+training.cond_dropout_prob:
+    value: 0.1
+training.enable_tf32:
+    value: true
+training.generation_timesteps:
+    value: 12
+training.gradient_accumulation_steps:
+    value: 1
+training.guidance_scale:
+    value: 0
+training.label_smoothing:
+    value: 0
+training.lm_coeff:
+    value: 0.1
+training.max_grad_norm:
+    value: null
+training.max_train_steps:
+    value: 10000
+training.min_masking_rate:
+    value: 0
+training.mixed_precision:
+    value: bf16
+training.mmu_coeff:
+    value: 1
+training.noise_type:
+    value: mask
+training.overfit_one_batch:
+    value: false
+training.samples_per_epoch:
+    value: 10000
+training.seed:
+    value: 10086
+training.t2i_coeff:
+    value: 1
+wandb.entity:
+    value: null
+wandb.resume:
+    value: auto
+wandb.run_id:
+    value: 7tp3f8ou

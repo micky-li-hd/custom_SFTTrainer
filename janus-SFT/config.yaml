@@ -1,7 +1,7 @@
 wandb:
   entity: null
   resume: auto
-  run_id: 7d0r05zb
+  run_id: 7tp3f8ou
 experiment:
   project: janus-SFT
   name: janus-SFT
@@ -21,7 +21,7 @@ model:
   gradient_checkpointing: true
 dataset:
   params:
-    url: /home/v-haodongli/Janus/tmp_script/laion_2b_aesthetic/{00042..00133}.tar
+    path: /home/v-haodongli/Janus/tmp_script/laion_2b_aesthetic
     shuffle_buffer_size: 1000
     max_samples: 1000
     num_workers: 32

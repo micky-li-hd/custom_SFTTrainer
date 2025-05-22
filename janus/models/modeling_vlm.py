@@ -288,7 +288,7 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         loss_image = F.cross_entropy(logits_image.float(), label_ids_flat[label_image_indices])
         loss = loss_text + loss_image        
         
-        return {"loss": loss, "loss_text":loss_text, "loss_image":loss_image, "logits": hidden_states}
+        return {"loss": loss, "loss_text":loss_text, "loss_image":loss_image, "logits_image":logits_image, "logits_text":logits_text, "logits": hidden_states}
 AutoConfig.register("vision", VisionConfig)
 AutoConfig.register("aligner", AlignerConfig)
 AutoConfig.register("gen_vision", GenVisionConfig)

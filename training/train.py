@@ -278,6 +278,8 @@ def main():
                 loss = outputs["loss"]
                 loss_text = outputs["loss_text"]
                 loss_image = outputs["loss_image"]
+                logits_text = outputs["logits_text"]
+                logits_image = outputs["logits_image"]
                 # 分布式训练中的 loss 同步
                 avg_loss_text = accelerator.gather(loss_text.repeat(config.training.batch_size)).mean()
                 avg_loss_image = accelerator.gather(loss_image.repeat(config.training.batch_size)).mean()

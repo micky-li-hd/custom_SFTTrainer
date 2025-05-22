@@ -274,30 +274,15 @@ def main():
                     inputs_embeds=input_embeds,
                     return_dict=False
                 )
-                hidden_states = outputs[0]  # (B, L, D)
-
-                # 展平用于 loss 计算
-                hidden_states = hidden_states.view(-1, hidden_states.size(-1))  # (B*L, D)
-                label_ids_flat = label_ids.view(-1)  # (B*L, )
-
-                # 提取有效的 label mask
-                label_text_indices = label_text_id_mask.view(-1).bool()
-                label_image_indices = label_image_id_mask.view(-1).bool()
-
-                # 提取对应的 logits
-                logits_text = model.language_model.lm_head(hidden_states[label_text_indices])  # (N_text, Vocab)
-                logits_image = model.gen_head(hidden_states[label_image_indices])  # (N_image, ImageVocab)
-
-                # 计算 loss
-                loss_text = F.cross_entropy(logits_text.float(), label_ids_flat[label_text_indices])
-                loss_image = F.cross_entropy(logits_image.float(), label_ids_flat[label_image_indices])
-                loss = loss_text + loss_image
-
+                outputs = model(input_embeds, label_ids, label_text_id_mask, label_image_id_mask)
+                loss = outputs["loss"]
+                loss_text = outputs["loss_text"]
+                loss_image = outputs["loss_image"]
                 # 分布式训练中的 loss 同步
                 avg_loss_text = accelerator.gather(loss_text.repeat(config.training.batch_size)).mean()
                 avg_loss_image = accelerator.gather(loss_image.repeat(config.training.batch_size)).mean()
                 avg_loss = avg_loss_text + avg_loss_image
-
+                
                 accelerator.backward(loss)
 
                 # 梯度裁剪

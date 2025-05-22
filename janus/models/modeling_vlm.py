@@ -16,7 +16,7 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+import torch.nn.functional as F
 import torch
 from attrdict import AttrDict
 from einops import rearrange
@@ -264,7 +264,31 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         return_values = self.gen_aligner(test)
         return self.gen_aligner(self.gen_embed(image_ids))
 
+    def forward(self, input_embeds, label_ids, label_text_id_mask, label_image_id_mask):
+        outputs = self.language_model.model(
+            inputs_embeds=input_embeds,
+            return_dict=False
+        )
+        hidden_states = outputs[0]  # (B, L, D)       
 
+        # 展平用于 loss 计算
+        hidden_states = hidden_states.view(-1, hidden_states.size(-1))  # (B*L, D)
+        label_ids_flat = label_ids.view(-1)  # (B*L, )
+
+        # 提取有效的 label mask
+        label_text_indices = label_text_id_mask.view(-1).bool()
+        label_image_indices = label_image_id_mask.view(-1).bool()
+
+        # 提取对应的 logits
+        logits_text = self.language_model.lm_head(hidden_states[label_text_indices])  # (N_text, Vocab)
+        logits_image = self.gen_head(hidden_states[label_image_indices])  # (N_image, ImageVocab)
+
+        # 计算 loss
+        loss_text = F.cross_entropy(logits_text.float(), label_ids_flat[label_text_indices])
+        loss_image = F.cross_entropy(logits_image.float(), label_ids_flat[label_image_indices])
+        loss = loss_text + loss_image        
+        
+        return {"loss": loss, "loss_text":loss_text, "loss_image":loss_image, "logits": hidden_states}
 AutoConfig.register("vision", VisionConfig)
 AutoConfig.register("aligner", AlignerConfig)
 AutoConfig.register("gen_vision", GenVisionConfig)

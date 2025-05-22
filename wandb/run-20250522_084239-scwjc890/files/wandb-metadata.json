@@ -1,0 +1,170 @@
+{
+    "os": "Linux-6.8.0-1028-azure-x86_64-with-glibc2.35",
+    "python": "3.10.0",
+    "heartbeatAt": "2025-05-22T08:42:40.154950",
+    "startedAt": "2025-05-22T08:42:39.707015",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "config=config/sft.yaml"
+    ],
+    "state": "running",
+    "program": "/home/v-haodongli/t2isft/training/train.py",
+    "codePathLocal": "training/train.py",
+    "codePath": "training/train.py",
+    "git": {
+        "remote": "git@github.com:micky-li-hd/custom_sfttrainer.git",
+        "commit": "a45bf4426291a7de52f1a1a95fcef8da67e3a9b8"
+    },
+    "email": "3196859347@qq.com",
+    "root": "/home/v-haodongli/t2isft",
+    "host": "GCRAZGDL1502",
+    "username": "v-haodongli@microsoft.com",
+    "executable": "/home/v-haodongli/miniconda3/envs/showo/bin/python",
+    "cpu_count": 24,
+    "cpu_count_logical": 24,
+    "cpu_freq": {
+        "current": 2710.835499999999,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3094.494,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3012.128,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3093.822,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3095.006,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2875.471,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2635.537,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2387.82,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2473.568,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3094.815,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3119.571,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3094.126,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2486.359,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3093.645,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 3065.224,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2445.439,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 992.2479553222656,
+            "used": 850.1824760437012
+        }
+    },
+    "gpu": "NVIDIA A100 80GB PCIe",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA A100 80GB PCIe",
+            "memory_total": 85899345920
+        }
+    ],
+    "memory": {
+        "total": 216.26214599609375
+    }
+}

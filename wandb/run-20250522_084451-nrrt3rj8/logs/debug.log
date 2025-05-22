@@ -1,0 +1,30 @@
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Current SDK version is 0.17.0
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Configure stats pid to 3863032
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Loading settings from /home/v-haodongli/.config/wandb/settings
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Loading settings from /home/v-haodongli/t2isft/wandb/settings
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'training/train.py', 'program_abspath': '/home/v-haodongli/t2isft/training/train.py', 'program': '/home/v-haodongli/t2isft/training/train.py'}
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_setup.py:_flush():76] Applying login settings: {}
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_init.py:_log_setup():520] Logging user logs to /home/v-haodongli/t2isft/wandb/run-20250522_084451-nrrt3rj8/logs/debug.log
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_init.py:_log_setup():521] Logging internal logs to /home/v-haodongli/t2isft/wandb/run-20250522_084451-nrrt3rj8/logs/debug-internal.log
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_init.py:init():560] calling init triggers
+2025-05-22 08:44:51,050 INFO    MainThread:3863032 [wandb_init.py:init():567] wandb.init called with sweep_config: {}
+config: {}
+2025-05-22 08:44:51,051 INFO    MainThread:3863032 [wandb_init.py:init():610] starting backend
+2025-05-22 08:44:51,051 INFO    MainThread:3863032 [wandb_init.py:init():614] setting up manager
+2025-05-22 08:44:51,052 INFO    MainThread:3863032 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-05-22 08:44:51,053 INFO    MainThread:3863032 [wandb_init.py:init():622] backend started and connected
+2025-05-22 08:44:51,054 INFO    MainThread:3863032 [wandb_init.py:init():711] updated telemetry
+2025-05-22 08:44:51,058 INFO    MainThread:3863032 [wandb_init.py:init():744] communicating run to backend with 90.0 second timeout
+2025-05-22 08:44:51,258 INFO    MainThread:3863032 [wandb_run.py:_on_init():2396] communicating current version
+2025-05-22 08:44:51,317 INFO    MainThread:3863032 [wandb_run.py:_on_init():2405] got version response upgrade_message: "wandb version 0.19.11 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2025-05-22 08:44:51,317 INFO    MainThread:3863032 [wandb_init.py:init():795] starting run threads in backend
+2025-05-22 08:44:56,981 INFO    MainThread:3863032 [wandb_run.py:_console_start():2374] atexit reg
+2025-05-22 08:44:56,981 INFO    MainThread:3863032 [wandb_run.py:_redirect():2229] redirect: wrap_raw
+2025-05-22 08:44:56,981 INFO    MainThread:3863032 [wandb_run.py:_redirect():2294] Wrapping output streams.
+2025-05-22 08:44:56,981 INFO    MainThread:3863032 [wandb_run.py:_redirect():2319] Redirects installed.
+2025-05-22 08:44:56,983 INFO    MainThread:3863032 [wandb_init.py:init():838] run started, returning control to user process
+2025-05-22 08:44:56,983 INFO    MainThread:3863032 [wandb_run.py:_config_callback():1376] config_cb None None {'wandb.entity': None, 'wandb.resume': 'auto', 'wandb.run_id': 'nrrt3rj8', 'experiment.project': 'janus-SFT', 'experiment.name': 'janus-SFT', 'experiment.output_dir': 'janus-SFT', 'experiment.max_train_examples': 20000000, 'experiment.max_train_examples_mmu': 40000000, 'experiment.save_every': 10000, 'experiment.eval_every': 2500, 'experiment.generate_every': 1000, 'experiment.log_every': 50, 'experiment.log_grad_norm_every': 500, 'experiment.logging_dir': 'janus-SFT/logs', 'model.janus_pro.model_name_or_path': 'deepseek-ai/Janus-Pro-7B', 'model.gradient_checkpointing': True, 'dataset.params.path': '/home/v-haodongli/Janus/tmp_script/laion_2b_aesthetic', 'dataset.params.shuffle_buffer_size': 1000, 'dataset.params.max_samples': 1000, 'dataset.params.num_workers': 24, 'dataset.params.resolution': 256, 'dataset.params.pin_memory': True, 'dataset.params.persistent_workers': True, 'dataset.preprocessing.max_seq_length': 381, 'optimizer.name': 'adamw', 'optimizer.params.learning_rate': 2e-05, 'optimizer.params.scale_lr': False, 'optimizer.params.beta1': 0.9, 'optimizer.params.beta2': 0.999, 'optimizer.params.weight_decay': 0.01, 'optimizer.params.epsilon': 1e-08, 'lr_scheduler.scheduler': 'cosine', 'lr_scheduler.params.learning_rate': 2e-05, 'lr_scheduler.params.warmup_steps': 1000, 'training.gradient_accumulation_steps': 1, 'training.noise_type': 'mask', 'training.batch_size': 4, 'training.samples_per_epoch': 10000, 'training.mixed_precision': 'bf16', 'training.enable_tf32': True, 'training.seed': 10086, 'training.max_train_steps': 10000, 'training.overfit_one_batch': False, 'training.cond_dropout_prob': 0.1, 'training.min_masking_rate': 0.0, 'training.label_smoothing': 0.0, 'training.max_grad_norm': None, 'training.guidance_scale': 0.0, 'training.generation_timesteps': 12, 'training.t2i_coeff': 1.0, 'training.lm_coeff': 0.1, 'training.mmu_coeff': 1.0, 'config': 'config/sft.yaml'}
+2025-05-22 08:45:10,968 WARNING MsgRouterThr:3863032 [router.py:message_loop():77] message_loop has been closed

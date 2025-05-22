@@ -27,6 +27,15 @@ from janus.models.modeling_vlm import MultiModalityCausalLM
 from training.data_new import LazySupervisedMixDataset, DataCollatorForSupervisedDataset
 from torch.utils.data import Dataset, DataLoader
 from training.lr_schedulers import get_scheduler
+
+# import debugpy
+# try:
+#     # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
+#     debugpy.listen(("localhost", 9505))
+#     print("Waiting for debugger attach")
+#     debugpy.wait_for_client()
+# except Exception as e:
+#     pass
 logger = get_logger(__name__, log_level="INFO")
 
 def main():

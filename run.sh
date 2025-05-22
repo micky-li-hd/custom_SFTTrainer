@@ -9,4 +9,4 @@
 #     --do_train
 
 
-accelerate launch --config_file accelerate_config/default_config.yaml --main_process_port=8888 training/train.py config=config/sft.yaml
+accelerate launch --config_file accelerate_config/default_config.yaml --main_process_port=8888 train.py config=config/sft.yaml

@@ -1,0 +1,45 @@
+{
+  "os": "Linux-6.8.0-1028-azure-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.17",
+  "startedAt": "2025-05-21T12:26:47.405551Z",
+  "args": [
+    "config=config/sft.yaml"
+  ],
+  "program": "/home/v-haodongli/t2isft/training/train.py",
+  "codePath": "training/train.py",
+  "git": {
+    "remote": "git@github.com:micky-li-hd/custom_sfttrainer.git",
+    "commit": "a45bf4426291a7de52f1a1a95fcef8da67e3a9b8"
+  },
+  "email": "3196859347@qq.com",
+  "root": "/home/v-haodongli/t2isft",
+  "host": "GCRAZGDL1502",
+  "executable": "/home/v-haodongli/miniconda3/envs/t2isft_test/bin/python3.10",
+  "codePathLocal": "training/train.py",
+  "cpu_count": 24,
+  "cpu_count_logical": 24,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1065418129408",
+      "used": "902647959552"
+    }
+  },
+  "memory": {
+    "total": "232209711104"
+  },
+  "cpu": {
+    "count": 24,
+    "countLogical": 24
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100 80GB PCIe",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere"
+    }
+  ],
+  "cudaVersion": "12.9"
+}

@@ -1,0 +1,33 @@
+05/22/2025 08:44:56 - INFO - root - Saving config to janus-SFT/config.yaml
+05/22/2025 08:44:56 - INFO - __main__ - Loading models and optimizer
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.16s/it]
+05/22/2025 08:45:00 - INFO - __main__ - Creating dataloaders and lr_scheduler
+Resolving data files: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 202/202 [00:00<00:00, 423624.70it/s]
+Loading dataset shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 128/128 [00:00<00:00, 27192.98it/s]
+05/22/2025 08:45:02 - INFO - __main__ - Preparing model, optimizer and dataloaders
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/training/train.py", line 491, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/training/train.py", line 219, in main
+    model, optimizer, lr_scheduler, dataloader = accelerator.prepare(model, optimizer, lr_scheduler, dataloader)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/accelerate/accelerator.py", line 1198, in prepare
+    result = self._prepare_deepspeed(*args)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/accelerate/accelerator.py", line 1531, in _prepare_deepspeed
+    optimizer = DeepSpeedCPUAdam(optimizer.param_groups, **defaults)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+    self.ds_opt_adam = CPUAdamBuilder().load()
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 480, in load
+    return self.jit_load(verbose)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 512, in jit_load
+    cxx_args = self.strip_empty_entries(self.cxx_args())
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 767, in cxx_args
+    CUDA_ENABLE = self.is_cuda_enable()
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 370, in is_cuda_enable
+    assert_no_cuda_mismatch(self.name)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/deepspeed/ops/op_builder/builder.py", line 101, in assert_no_cuda_mismatch
+    raise CUDAMismatchException(
+deepspeed.ops.op_builder.builder.CUDAMismatchException: >- DeepSpeed Op Builder: Installed CUDA version 12.9 does not match the version torch was compiled with 12.1, unable to compile cuda/cpp extensions without a matching cuda version.

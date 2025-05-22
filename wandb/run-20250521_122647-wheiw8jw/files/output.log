@@ -1,0 +1,39 @@
+05/21/2025 12:26:47 - INFO - root - Saving config to janus-SFT/config.yaml
+05/21/2025 12:26:47 - INFO - __main__ - Loading models and optimizer
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards:   0%|                                                                                                                                        | 0/2 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/training/train.py", line 482, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/training/train.py", line 116, in main
+    model: MultiModalityCausalLM = MultiModalityCausalLM.from_pretrained(
+  File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 308, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 4613, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5059, in _load_pretrained_model
+    state_dict = load_state_dict(
+  File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 552, in load_state_dict
+    check_torch_load_is_safe()
+  File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1417, in check_torch_load_is_safe
+    raise ValueError(
+ValueError: Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
+See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/v-haodongli/t2isft/training/train.py", line 482, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/v-haodongli/t2isft/training/train.py", line 116, in main
+[rank0]:     model: MultiModalityCausalLM = MultiModalityCausalLM.from_pretrained(
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 308, in _wrapper
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 4613, in from_pretrained
+[rank0]:     ) = cls._load_pretrained_model(
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5059, in _load_pretrained_model
+[rank0]:     state_dict = load_state_dict(
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/modeling_utils.py", line 552, in load_state_dict
+[rank0]:     check_torch_load_is_safe()
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/t2isft_test/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1417, in check_torch_load_is_safe
+[rank0]:     raise ValueError(
+[rank0]: ValueError: Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
+[rank0]: See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434

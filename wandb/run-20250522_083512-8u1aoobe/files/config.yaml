@@ -1,0 +1,200 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.0
+    cli_version: 0.17.0
+    framework: huggingface
+    huggingface_version: 4.41.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1747902912
+    t:
+      1:
+      - 1
+      - 11
+      - 41
+      - 49
+      - 51
+      - 55
+      - 63
+      - 71
+      2:
+      - 1
+      - 11
+      - 41
+      - 49
+      - 51
+      - 55
+      - 63
+      - 71
+      3:
+      - 13
+      - 14
+      - 23
+      4: 3.10.0
+      5: 0.17.0
+      6: 4.41.1
+      8:
+      - 5
+      13: linux-x86_64
+wandb.entity:
+  desc: null
+  value: null
+wandb.resume:
+  desc: null
+  value: auto
+wandb.run_id:
+  desc: null
+  value: 8u1aoobe
+experiment.project:
+  desc: null
+  value: janus-SFT
+experiment.name:
+  desc: null
+  value: janus-SFT
+experiment.output_dir:
+  desc: null
+  value: janus-SFT
+experiment.max_train_examples:
+  desc: null
+  value: 20000000
+experiment.max_train_examples_mmu:
+  desc: null
+  value: 40000000
+experiment.save_every:
+  desc: null
+  value: 10000
+experiment.eval_every:
+  desc: null
+  value: 2500
+experiment.generate_every:
+  desc: null
+  value: 1000
+experiment.log_every:
+  desc: null
+  value: 50
+experiment.log_grad_norm_every:
+  desc: null
+  value: 500
+experiment.logging_dir:
+  desc: null
+  value: janus-SFT/logs
+model.janus_pro.model_name_or_path:
+  desc: null
+  value: deepseek-ai/Janus-Pro-7B
+model.gradient_checkpointing:
+  desc: null
+  value: true
+dataset.params.path:
+  desc: null
+  value: /home/v-haodongli/Janus/tmp_script/laion_2b_aesthetic
+dataset.params.shuffle_buffer_size:
+  desc: null
+  value: 1000
+dataset.params.max_samples:
+  desc: null
+  value: 1000
+dataset.params.num_workers:
+  desc: null
+  value: 24
+dataset.params.resolution:
+  desc: null
+  value: 256
+dataset.params.pin_memory:
+  desc: null
+  value: true
+dataset.params.persistent_workers:
+  desc: null
+  value: true
+dataset.preprocessing.max_seq_length:
+  desc: null
+  value: 381
+optimizer.name:
+  desc: null
+  value: adamw
+optimizer.params.learning_rate:
+  desc: null
+  value: 2.0e-05
+optimizer.params.scale_lr:
+  desc: null
+  value: false
+optimizer.params.beta1:
+  desc: null
+  value: 0.9
+optimizer.params.beta2:
+  desc: null
+  value: 0.999
+optimizer.params.weight_decay:
+  desc: null
+  value: 0.01
+optimizer.params.epsilon:
+  desc: null
+  value: 1.0e-08
+lr_scheduler.scheduler:
+  desc: null
+  value: cosine
+lr_scheduler.params.learning_rate:
+  desc: null
+  value: 2.0e-05
+lr_scheduler.params.warmup_steps:
+  desc: null
+  value: 1000
+training.gradient_accumulation_steps:
+  desc: null
+  value: 1
+training.noise_type:
+  desc: null
+  value: mask
+training.batch_size:
+  desc: null
+  value: 4
+training.samples_per_epoch:
+  desc: null
+  value: 10000
+training.mixed_precision:
+  desc: null
+  value: bf16
+training.enable_tf32:
+  desc: null
+  value: true
+training.seed:
+  desc: null
+  value: 10086
+training.max_train_steps:
+  desc: null
+  value: 10000
+training.overfit_one_batch:
+  desc: null
+  value: false
+training.cond_dropout_prob:
+  desc: null
+  value: 0.1
+training.min_masking_rate:
+  desc: null
+  value: 0.0
+training.label_smoothing:
+  desc: null
+  value: 0.0
+training.max_grad_norm:
+  desc: null
+  value: null
+training.guidance_scale:
+  desc: null
+  value: 0.0
+training.generation_timesteps:
+  desc: null
+  value: 12
+training.t2i_coeff:
+  desc: null
+  value: 1.0
+training.lm_coeff:
+  desc: null
+  value: 0.1
+training.mmu_coeff:
+  desc: null
+  value: 1.0
+config:
+  desc: null
+  value: config/sft.yaml

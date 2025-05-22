@@ -1,5 +1,4 @@
 compute_environment: LOCAL_MACHINE
-debug: false
 deepspeed_config:
   gradient_accumulation_steps: 1
   gradient_clipping: 1.0
@@ -10,7 +9,6 @@ deepspeed_config:
   zero_stage: 2
 distributed_type: DEEPSPEED
 downcast_bf16: 'no'
-enable_cpu_affinity: false
 machine_rank: 0
 main_training_function: main
 mixed_precision: bf16

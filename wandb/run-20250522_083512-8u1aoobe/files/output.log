@@ -1,0 +1,22 @@
+05/22/2025 08:35:19 - INFO - root - Saving config to janus-SFT/config.yaml
+05/22/2025 08:35:19 - INFO - __main__ - Loading models and optimizer
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:03<00:00,  1.98s/it]
+05/22/2025 08:35:26 - INFO - __main__ - Creating dataloaders and lr_scheduler
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/training/train.py", line 482, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/training/train.py", line 166, in main
+    train_dataset = LazySupervisedMixDataset(
+  File "/home/v-haodongli/t2isft/training/data_new.py", line 37, in __init__
+    train_dataset = load_dataset("webdataset", data_files=data_files, split="train", num_proc=128)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/datasets/load.py", line 1704, in load_dataset
+    builder_instance = load_dataset_builder(
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/datasets/load.py", line 1530, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/datasets/load.py", line 1278, in dataset_module_factory
+    raise FileNotFoundError(
+FileNotFoundError: Couldn't find a dataset script at /home/v-haodongli/t2isft/webdataset/webdataset.py or any data file in the same directory. Couldn't find 'webdataset' on the Hugging Face Hub either: FileNotFoundError: Couldn't find file at https://raw.githubusercontent.com/huggingface/datasets/master/datasets/webdataset/webdataset.py

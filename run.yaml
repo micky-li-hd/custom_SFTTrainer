@@ -1,0 +1,13 @@
+conda create -n t2isft_test python=3.10 -y
+conda activate t2isft_test
+pip install numpy pandas matplotlib tqdm
+pip install torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 --extra-index-url https://download.pytorch.org/whl/cu124  --no-cache-dir
+pip install accelerate omegaconf wandb datasets tqdm pillow scikit-learn
+pip install --upgrade transformers
+pip install attrdict
+pip install timm
+pip install deepspeed --no-cache-dir
+
+
+base showo:pip install attrdict webdataset
+pip install datasets==3.6.0

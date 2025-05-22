@@ -1,0 +1,25 @@
+05/22/2025 08:42:46 - INFO - root - Saving config to janus-SFT/config.yaml
+05/22/2025 08:42:46 - INFO - __main__ - Loading models and optimizer
+
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.31s/it]
+05/22/2025 08:42:50 - INFO - __main__ - Creating dataloaders and lr_scheduler
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/training/train.py", line 491, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/training/train.py", line 175, in main
+    train_dataset = LazySupervisedMixDataset(
+  File "/home/v-haodongli/t2isft/training/data_new.py", line 37, in __init__
+    train_dataset = load_dataset("webdataset", data_files=data_files, split="train", num_proc=128)
+  File "_pydevd_bundle\\pydevd_cython.pyx", line 1697, in _pydevd_bundle.pydevd_cython.SafeCallWrapper.__call__
+  File "_pydevd_bundle\\pydevd_cython.pyx", line 634, in _pydevd_bundle.pydevd_cython.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle\\pydevd_cython.pyx", line 1368, in _pydevd_bundle.pydevd_cython.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle\\pydevd_cython.pyx", line 1340, in _pydevd_bundle.pydevd_cython.PyDBFrame.trace_dispatch
+  File "_pydevd_bundle\\pydevd_cython.pyx", line 494, in _pydevd_bundle.pydevd_cython.PyDBFrame.do_wait_suspend
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/debugpy/_vendored/pydevd/pydevd.py", line 2185, in do_wait_suspend
+    keep_suspended = self._do_wait_suspend(thread, frame, event, arg, trace_suspend_type, from_this_thread, frames_tracker)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/site-packages/debugpy/_vendored/pydevd/pydevd.py", line 2254, in _do_wait_suspend
+    notify_event.wait(wait_timeout)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/threading.py", line 600, in wait
+    signaled = self._cond.wait(timeout)
+  File "/home/v-haodongli/miniconda3/envs/showo/lib/python3.10/threading.py", line 324, in wait
+    gotit = waiter.acquire(True, timeout)

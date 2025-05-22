@@ -1,27 +1,12 @@
 import os
-import io
-import copy
-from dataclasses import dataclass, field
-import json
-import logging
-import pathlib
-from typing import Dict, Optional, Sequence, List
-import time
+from dataclasses import dataclass
+from typing import Dict, Sequence
 import torch
 from torch.utils.data import Dataset
-from PIL import Image, ImageFile
 from datasets import load_dataset, concatenate_datasets
-from pathlib import Path
-from datasets.utils.logging import set_verbosity_info
-from transformers import logging as tf_logging
-import torchvision.transforms as T
-from torchvision.transforms.functional import InterpolationMode
 from transformers import AutoProcessor
-from functools import partial
 import glob
-import random
 import transformers
-import tokenizers
 from torch.nn.utils.rnn import pad_sequence
 # ======== 数据处理逻辑 ========
 def process_sample(sample):
@@ -180,7 +165,7 @@ if __name__ == "__main__":
     data_collator = DataCollatorForSupervisedDataset(tokenizer)
 
     # 测试调用
-    batch = data_collator([train_dataset[1], train_dataset[2]])
+    batch = data_collator([train_dataset[1], train_dataset[2], train_dataset[3]])
     
     # 打印输出示例
     print("Batch keys:", batch.keys())

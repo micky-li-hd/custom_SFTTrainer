@@ -1,0 +1,55 @@
+description: amlt job submission
+env_defaults: 
+  NODES: 1 
+  GPUS: 4
+  WANDB_API_KEY: "932cf1932b038f1aa905e52f1fe208ddb75c403c"
+target:
+  service: sing
+  name: msrresrchvc
+  workspace_name: msramigws
+
+environment:
+  image: amlt-sing/acpt-torch2.5.0-py3.10-cuda12.4-ubuntu22.04
+  setup:
+  - pip install numpy pandas matplotlib tqdm
+  - pip install torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 --extra-index-url https://download.pytorch.org/whl/cu124  --no-cache-dir
+  - pip install accelerate omegaconf wandb datasets tqdm pillow scikit-learn
+  - pip install --upgrade transformers
+  - pip install attrdict
+  - pip install timm
+  - pip install deepspeed --no-cache-dir
+  - pip install attrdict webdataset
+  - pip install datasets==3.6.0
+  - pip install einops
+
+
+
+code:
+  local_dir: $CONFIG_DIR/
+
+storage:
+  output:
+    storage_account_name: msraiegmultimedia
+    container_name: v-haodongli
+    mount_dir: /mnt/v-haodongli
+  external:
+    storage_account_name: msraiegmultimedia
+    container_name: chol
+    mount_dir: /mnt/shared_data
+
+jobs:
+- name: SFT_test
+  sku: 1xG4-A100
+  sla_tier: Premium
+  priority: High 
+  submit_args:
+    max_run_duration_seconds: 1209600
+    env:
+      _AZUREML_SINGULARITY_JOB_UAI: /subscriptions/622ac093-cd5d-4146-af74-d19d1d59f314/resourcegroups/MSRA_IEG_Multimedia/providers/Microsoft.ManagedIdentity/userAssignedIdentities/msramig3dmanagedidentity
+  command:
+  - sleep infinity
+  - accelerate launch --config_file accelerate_config/default_config.yaml --main_process_port=8888 training/train.py config=config/sft.yaml
+
+
+
+
